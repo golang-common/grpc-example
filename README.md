@@ -21,11 +21,11 @@ protoc -I . --go_out=plugins=grpc,Mfoo/bar.proto=bar,import_prefix=foo/,import_p
 
 **示例含参数说明**
 ```shell script
-protoc -I . --go_out=plugins=grpc,\   #指定输出go代码(也可以指定其它语言代码)
-            Mhelloworld.proto=dpy,\   #M参数指定proto文件中import其它proto对应的报名,如此处指示import helloworld.proto在go代码中包名为dpy
-            import_prefix=dpy,\   #指定生成的go代码中import路径增加前缀,通常用于修正go项目引入路径
-            import_path=dpy:\  #强制指定编译后的包名
-            ./*.proto #编译的目标文件，支持通配符
+protoc -I . --go_out=plugins=grpc,\   # 指定输出go代码(也可以指定其它语言代码)
+            Mhelloworld.proto=dpy,\   # M参数指定proto文件中import其它proto对应的报名,如此处指示import helloworld.proto在go代码中包名为dpy
+            import_prefix=dpy,\   # 指定生成的go代码中import路径增加前缀,通常用于修正go项目引入路径
+            import_path=dpy:\  # 强制指定编译后的包名
+            ./*.proto # 编译的目标文件，支持通配符
 ```
 
 **-I参数**
@@ -85,11 +85,13 @@ package dpy
 
 ## 测试例目录
 ### 1.简单的RPC通信
-1. 在helloworld文件夹中新建helloworld.proto，并定义hello服务
-2. 使用`protoc -I ./ --go_out=plugins=grpc:./grpc-example/simple-proto-out ./grpc-example/simple-proto/*.proto`生成go代码文件
+1. 在simple-proto文件夹中新建hello.proto，并定义hello服务
+2. 使用`protoc -I ./ --go_out=plugins=grpc:./simple-proto-out ./simple-proto/*.proto`生成go代码文件
 3. `simple-proto-out`目录中保存了proto编译后的代码文件
 4. `simple-use`目录演示了简单的一元交互
 5. `simple-use-interceptor`目录演示了在简单一元交互基础上如何使用拦截器
 
 ### 2.流模式RPC通信
 #### 客户端流模式
+1. 在stream-proto文件夹中新建stream_hello.proto,并定义StreamHello服务
+2. 使用`protoc -I ./ --go_out=plugins=grpc:./stream-proto-out ./stream-proto/*.proto`生成go代码文件
