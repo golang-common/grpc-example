@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package streamhello;
+
+option go_package = "streamhello";
+
+import "google/protobuf/timestamp.proto";
+
+service StreamHello {
+    // 定义客户端流服务
+    rpc CStreamHello (stream HelloRequest) returns (HelloReply);
+    // 定义服务端流服务
+    rpc SStreamHello (HelloRequest) returns (stream HelloReply) {
+    }
+    // 定义双向流服务
+    rpc DStreamHello (stream HelloRequest) returns (stream HelloReply) {
+    }
+}
+
+// 定义Client发起请求参数
+message HelloRequest {
+    string req = 1; // 消息中的参数序号
+    google.protobuf.Timestamp last_update = 2;
+}
+
+// 定义Server返回参数
+message HelloReply {
+    string resp = 1;
+    google.protobuf.Timestamp last_update = 2;
+}
