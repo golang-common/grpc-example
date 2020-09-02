@@ -3,3 +3,5 @@
 // @Desc  : 
 
 package main
+
+const serverAddr = "localhost:8080"

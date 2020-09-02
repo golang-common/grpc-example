@@ -8,13 +8,14 @@ import "google/protobuf/timestamp.proto";
 
 service StreamHello {
     // 定义客户端流服务
-    rpc CStreamHello (stream HelloRequest) returns (HelloReply);
+    rpc CStreamHello (stream HelloRequest) returns (HelloReply) {
+    };
     // 定义服务端流服务
     rpc SStreamHello (HelloRequest) returns (stream HelloReply) {
-    }
+    };
     // 定义双向流服务
     rpc DStreamHello (stream HelloRequest) returns (stream HelloReply) {
-    }
+    };
 }
 
 // 定义Client发起请求参数
