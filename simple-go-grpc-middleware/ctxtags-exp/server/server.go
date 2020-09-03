@@ -1,6 +1,6 @@
 // @Author: Perry
 // @Date  : 2020/8/26
-// @Desc  : 
+// @Desc  :
 
 package main
 
@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"grpc-example/simple-proto-out/hello"
@@ -35,7 +36,15 @@ func main() {
 	}
 	defer conn.Close()
 
-	server := grpc.NewServer()
+	// 定义拦截器option
+	opts := []grpc_ctxtags.Option{
+		grpc_ctxtags.WithFieldExtractor(grpc_ctxtags.TagBasedRequestFieldExtractor("log_fields")),
+	}
+	// 创建server时增加相关拦截器选项
+	server := grpc.NewServer(
+		grpc.StreamInterceptor(grpc_ctxtags.StreamServerInterceptor(opts...)),
+		grpc.UnaryInterceptor(grpc_ctxtags.UnaryServerInterceptor(opts...)),
+	)
 	hello.RegisterHelloServer(server, &HelloServer{})
 	reflection.Register(server)
 	fmt.Println("server started")

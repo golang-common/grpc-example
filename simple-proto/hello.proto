@@ -21,6 +21,7 @@ service Hello {
 
 // 定义Client发起请求参数
 message HelloRequest {
+    repeated
     string req = 1; // 消息中的参数序号
 }
 
