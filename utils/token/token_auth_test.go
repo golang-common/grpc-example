@@ -13,7 +13,7 @@ import (
 func getClaims() CustomClaims {
 	var a []string
 	a = append(a, "1")
-	ip := net_utils.GetAllAdrress()
+	ip := "127.0.0.1"
 	claims := CustomClaims{
 		"admin",
 		ip,
@@ -49,4 +49,3 @@ func TestJWT_ParseToken(t *testing.T) {
 	//fmt.Println(newToken)
 	//fmt.Println(err)
 }
-
