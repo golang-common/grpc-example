@@ -1,7 +1,5 @@
 # GRPC测试例子
 
-[TOC]
-
 ## GRPC基础知识
 ### GO编译参数
 
@@ -83,15 +81,17 @@ protoc -I ./ --go_out=plugins=grpc,import_path=dpy:. ./protoA.proto
 package dpy
 ```
 
-## 测试例目录
-### 1.简单的RPC通信
-1. 在simple-proto文件夹中新建hello.proto，并定义hello服务
-2. 使用`protoc -I ./ --go_out=plugins=grpc:./simple-proto-out ./simple-proto/*.proto`生成go代码文件
-3. `simple-proto-out`目录中保存了proto编译后的代码文件
-4. `simple-use`目录演示了简单的一元交互
-5. `simple-use-interceptor`目录演示了在简单一元交互基础上如何使用拦截器
 
-### 2.流模式RPC通信
-#### 客户端流模式
-1. 在stream-proto文件夹中新建stream_hello.proto,并定义StreamHello服务
-2. 使用`protoc -I ./ --go_out=plugins=grpc:./stream-proto-out ./stream-proto/*.proto`生成go代码文件
+## 拦截器解析
+拦截器可以在每次请求或接收的时候都执行某个动作，如接口认证、打印日志等
+
+客户端拦截器说明
+```text
+# 客户端正常拨号时可以带DialOption
+grpc.Dial("8.8.8.8:8080",DialOption...)
+
+# 常见的DialOption如下，最终操作的是grpc包中的dialOptions对象
+grpc.WithInsecure() //不加密
+grpc.WithAuthority() //设置授权字段
+
+```
